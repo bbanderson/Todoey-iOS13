@@ -134,71 +134,27 @@ class TodoListViewController: UITableViewController {
         print(indexPath)
         cell.textLabel?.text = itemArray[indexPath.row].title
         
-        if let _ = selectedCellList.firstIndex(of: indexPath) {
-            itemArray[indexPath.row].done.toggle()
-            cell.accessoryType = .checkmark
-        } else {
-            itemArray[indexPath.row].done.toggle()
+        
+        if itemArray[indexPath.row].done == false {
             cell.accessoryType = .none
+        } else {
+            cell.accessoryType = .checkmark
         }
-        print(itemArray[indexPath.row].done)
+        
         return cell
     }
     
     //MARK: - TableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath)!
-//        let cell = itemArray[indexPath.row]
-//        print(cell.textLabel?.text ?? "nil")
-        
-//        print(tableView.allowsSelection.toggle())
-        
-//
-//    var isDone = itemArray[indexPath.row].done
-        
-        
-        if let index = selectedCellList.firstIndex(of: indexPath) {
-            selectedCellList.remove(at: index)
+
+        if itemArray[indexPath.row].done == false {
+            itemArray[indexPath.row].done = true
         } else {
-            selectedCellList.append(indexPath)
+            itemArray[indexPath.row].done = false
         }
         
-        
-//        print(indexPath.row)
-//        print(itemArray[indexPath.row].title)
-//        if itemArray[indexPath.row].done == true {
-////            cell.accessoryType = .none
-//            itemArray[indexPath.row].done.toggle()
-//            print(itemArray[indexPath.row].done)
-//        } else {
-////            cell.accessoryType = .checkmark
-//            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-//            itemArray[indexPath.row].done.toggle()
-//            print(itemArray[indexPath.row].done)
-//        }
-        
-        
-//        if !selectedCell.done {
-//            selectedCell.done = false
-//            cell.accessoryType = .none
-//
-//        } else {
-//
-//            selectedCell.done = true
-//            cell.accessoryType = .checkmark
-//
-//        }
-//
-        
-        
-//        if cell.accessoryType == .none {
-//            cell.accessoryType = .checkmark
-//        } else {
-//            cell.accessoryType = .none
-//        }
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-        
-//        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.reloadData()
+        tableView.deselectRow(at: indexPath, animated: true)
 
     }
 
