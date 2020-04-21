@@ -40,12 +40,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Items" id="2N4-RO-5Fy">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="EL4-9f-0Zx">
-                            <color key="tintColor" red="0.21176470589999999" green="0.18823529410000001" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="addBtnPressed:" destination="Ysr-qM-V0z" id="sIC-Jf-HTy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="BTr-Qf-2UH" id="NZ1-Cs-Ocd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8AK-3g-M0e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -56,10 +58,10 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sb9-QK-uq8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xeR-rQ-vxC">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="xeR-rQ-vxC">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="0.75043290080000002" blue="0.0017316030310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.21176470589999999" green="0.18823529410000001" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
@@ -98,7 +100,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Todoey" id="UuM-4h-3DT">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="e88-Hh-WAV">
-                            <color key="tintColor" red="0.21176470589999999" green="0.18823529410000001" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="AddBtnPressed:" destination="Iz7-lF-HtI" id="g24-nB-oPF"/>
                             </connections>
