@@ -39,21 +39,23 @@ class CategoryViewController: UITableViewController {
         cell.textLabel?.text = item
         return cell
     }
-    
+    //MARK: - Add New Category
     @IBAction func AddBtnPressed(_ sender: UIBarButtonItem) {
+        
+        var field = UITextField()
         
         let alert = UIAlertController(title: "카테고리 추가", message: "추가해보세요", preferredStyle: .alert)
         let action = UIAlertAction(title: "추가", style: .default) { (action) in
 
             let cellItem = Category(context: self.context)
-            cellItem.name = alert.textFields![0].text
+            cellItem.name = field.text!
             
             self.category.append(cellItem)
             self.save()
-            self.tableView.reloadData()
         }
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "카테고리를 설정하세요."
+            field = alertTextField
+            field.placeholder = "카테고리를 설정하세요."
         }
         
         alert.addAction(action)
@@ -68,11 +70,11 @@ class CategoryViewController: UITableViewController {
         } catch {
             print(error.localizedDescription)
         }
-        
+        self.tableView.reloadData()
     }
     
     func loadData(with request:  NSFetchRequest<Category> = Category.fetchRequest()) {
-        
+                
         do {
             category = try context.fetch(request)
         } catch {
@@ -82,7 +84,19 @@ class CategoryViewController: UITableViewController {
     }
     
     //MARK: - TableView Delegate Methos
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToItems", sender: self)
+    }
     
-    //MARK: - <#구역이름#>
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoListViewController
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedCategory = category[indexPath.row]
+
+        }
+        
+    }
 
 }
