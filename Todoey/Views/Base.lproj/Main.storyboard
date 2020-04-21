@@ -20,7 +20,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
-                                <outlet property="delegate" destination="Ysr-qM-V0z" id="dua-5b-TFn"/>
+                                <outlet property="delegate" destination="Ysr-qM-V0z" id="N9d-eC-SAy"/>
                             </connections>
                         </searchBar>
                         <prototypes>
