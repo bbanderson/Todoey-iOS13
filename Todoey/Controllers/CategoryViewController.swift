@@ -9,38 +9,40 @@
 import UIKit
 import RealmSwift
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
     
     let realm = try! Realm()
     
     var category: Results<Category>?
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        tableView.rowHeight = 100
+        
         loadData()
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return category?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         let item = category?[indexPath.row].name ?? "No Categories Added Yet"
         cell.textLabel?.text = item
         return cell
     }
+    
     //MARK: - Add New Category
     @IBAction func AddBtnPressed(_ sender: UIBarButtonItem) {
         
@@ -48,7 +50,7 @@ class CategoryViewController: UITableViewController {
         
         let alert = UIAlertController(title: "카테고리 추가", message: "추가해보세요", preferredStyle: .alert)
         let action = UIAlertAction(title: "추가", style: .default) { (action) in
-
+            
             let cellItem = Category()
             cellItem.name = field.text!
             
@@ -61,7 +63,7 @@ class CategoryViewController: UITableViewController {
         
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
-                
+        
     }
     
     //MARK: - TableViewDataSourceMethods
@@ -77,13 +79,28 @@ class CategoryViewController: UITableViewController {
     }
     
     func loadData() {
-
+        
         category = realm.objects(Category.self)
         tableView.reloadData()
     }
     
+    //MARK: - Delete
+    
+    override func updateModel(at indexPath: IndexPath) {
+        if let item = self.category?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(item)
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+    }
+    
     //MARK: - TableView Delegate Methos
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToItems", sender: self)
     }
@@ -93,9 +110,12 @@ class CategoryViewController: UITableViewController {
         
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedCategory = category?[indexPath.row]
-
+            
         }
         
     }
-
+    
+    
 }
+
+//MARK: - Swipe
